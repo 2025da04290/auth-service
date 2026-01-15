@@ -22,9 +22,10 @@ public class JwtService {
         this.key = Keys.hmacShaKeyFor(jwtConfig.getSecret().getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String username) {
+    public String generateToken(String username, String role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("type", "access");
+        claims.put("role", role != null ? role : "USER");
 
         return Jwts.builder()
                 .claims(claims)
